@@ -53,13 +53,13 @@ namespace CPE200Lab1
             {
                 lblDisplay.Text = "0";
             }
-            if(lblDisplay.Text.Length is 8)
+            if (lblDisplay.Text.Length is 8)
             {
                 return;
             }
             isAllowBack = true;
             string digit = ((Button)sender).Text;
-            if(lblDisplay.Text is "0")
+            if (lblDisplay.Text is "0")
             {
                 lblDisplay.Text = "";
             }
@@ -77,20 +77,32 @@ namespace CPE200Lab1
             {
                 return;
             }
-            temp = operate;
             operate = ((Button)sender).Text;
+
             switch (operate)
             {
+                case "1/X":
                 case "+":
                 case "-":
                 case "X":
                 case "÷":
-                    firstOperand = lblDisplay.Text;
-                    isAfterOperater = true;
-                    break;
+                    if (firstOperand == string.Empty)
+                    {
+                        firstOperand = lblDisplay.Text;
+                        isAfterOperater = true;
+                        temp = operate;
+                        break;
+                    }
+                    else
+                    {
+                        lblDisplay.Text = engine.calculate(temp, firstOperand, lblDisplay.Text);
+                        firstOperand = lblDisplay.Text;
+                        isAfterOperater = true;
+                        temp = operate;
+                        break;
+                    }
                 case "%":
-                    lblDisplay.Text = (((Convert.ToDouble(lblDisplay.Text))/100)*(Convert.ToDouble(firstOperand))).ToString();
-                    isAfterOperater = true;
+                    lblDisplay.Text = ((Convert.ToDouble(lblDisplay.Text)) * (Convert.ToDouble(firstOperand)) / 100).ToString();
                     break;
             }
             isAllowBack = false;
@@ -111,10 +123,6 @@ namespace CPE200Lab1
             else
             {
                 lblDisplay.Text = result;
-                if (operate == "%")
-                {
-                    lblDisplay.Text = engine.calculate(temp, firstOperand, secondOperand);
-                }
             }
             isAfterEqual = true;
         }
@@ -155,10 +163,11 @@ namespace CPE200Lab1
             {
                 return;
             }
-            if(lblDisplay.Text[0] is '-')
+            if (lblDisplay.Text[0] is '-')
             {
                 lblDisplay.Text = lblDisplay.Text.Substring(1, lblDisplay.Text.Length - 1);
-            } else
+            }
+            else
             {
                 lblDisplay.Text = "-" + lblDisplay.Text;
             }
@@ -183,20 +192,22 @@ namespace CPE200Lab1
             {
                 return;
             }
-            if(lblDisplay.Text != "0")
+            if (lblDisplay.Text != "0")
             {
                 string current = lblDisplay.Text;
                 char rightMost = current[current.Length - 1];
-                if(rightMost is '.')
+                if (rightMost is '.')
                 {
                     hasDot = false;
                 }
                 lblDisplay.Text = current.Substring(0, current.Length - 1);
-                if(lblDisplay.Text is "" || lblDisplay.Text is "-")
+                if (lblDisplay.Text is "" || lblDisplay.Text is "-")
                 {
                     lblDisplay.Text = "0";
                 }
             }
         }
+
+
     }
 }

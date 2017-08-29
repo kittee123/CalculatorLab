@@ -40,9 +40,9 @@ namespace CPE200Lab1
                         return result.ToString("N" + remainLength);
                     }
                     break;
-                case "%":
+                //case "%":
 
-                    break;
+                    //break;
              
             }
             return "E";

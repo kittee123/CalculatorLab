@@ -118,8 +118,18 @@ namespace CPE200Lab1
                     }
                     break;
                 case "%":
-                    //your code here
-                    break;
+                    if(isOperator(operate) != true)
+                    {
+                        return "E";
+                    }
+                    else
+                    {
+                        double percent;
+                        double result;
+                        percent = ((Convert.ToDouble(firstOperand) * Convert.ToDouble(secondOperand)) / 100);
+                        result = Convert.ToDouble(firstOperand + operate + percent);
+                        return result.ToString();
+                    }
             }
             return "E";
         }
